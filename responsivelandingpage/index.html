@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Responsive Landing Page</title>
+<style>
+  /* Reset & base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body, h1, h2, h3, p, ul, nav, form {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f9fafb;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  img {
+    max-width: 100%;
+  }
+
+  /* Container */
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  header {
+    background-color: #24292e;
+    color: #fff;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    cursor: default;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+  }
+  nav ul li + li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #cfd8dc;
+    transition: color 0.3s ease;
+  }
+  nav ul li a:hover {
+    color: #58a6ff;
+  }
+
+  /* Hamburger menu */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  .menu-toggle span {
+    height: 3px;
+    width: 25px;
+    background: #fff;
+    margin-bottom: 4px;
+    border-radius: 2px;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #4f46e5, #2563eb);
+    color: white;
+    padding: 6rem 0 4rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 2.75rem;
+    max-width: 800px;
+    margin: 0 auto 1rem;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+  .hero p {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    color: #d1d5db;
+  }
+  .btn-primary {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 14px rgb(59 130 246 / 0.39);
+  }
+  .btn-primary:hover, .btn-primary:focus {
+    background-color: #2563eb;
+    outline: none;
+  }
+
+  /* Features section */
+  .features {
+    background: white;
+    padding: 4rem 0 6rem;
+    text-align: center;
+  }
+  .features h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+  .feature-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .feature-item {
+    background: #f3f4f6;
+    border-radius: 1rem;
+    padding: 2rem;
+    flex: 1 1 250px;
+    max-width: 320px;
+    box-shadow: 0 6px 12px rgb(0 0 0 / 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .feature-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgb(0 0 0 / 0.1);
+  }
+  .feature-icon {
+    font-size: 3rem;
+    color: #2563eb;
+    margin-bottom: 1rem;
+  }
+  .feature-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    color: #111827;
+  }
+  .feature-desc {
+    font-size: 1rem;
+    color: #4b5563;
+  }
+
+  /* Contact section */
+  .contact {
+    background: #eff6ff;
+    padding: 4rem 0 6rem;
+    text-align: center;
+  }
+  .contact h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+  }
+  .contact p {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: 1rem;
+    color: #475569;
+  }
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+    color: #334155;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    border: 1.8px solid #cbd5e1;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 6px #93c5fd;
+  }
+  button[type="submit"] {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button[type="submit"]:hover, button[type="submit"]:focus {
+    background-color: #1d4ed8;
+    outline: none;
+  }
+
+  /* Footer */
+  footer {
+    background-color: #1e293b;
+    color: #9ca3af;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav ul {
+      display: none;
+      flex-direction: column;
+      background-color: #24292e;
+      position: absolute;
+      top: 64px;
+      right: 1rem;
+      border-radius: 0.5rem;
+      width: 150px;
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.3);
+    }
+    nav ul.active {
+      display: flex;
+    }
+    nav ul li {
+      margin: 1rem 0;
+      text-align: right;
+      margin-right: 1.5rem;
+    }
+    .menu-toggle {
+      display: flex;
+    }
+    .feature-list {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-container">
+    <div class="logo" aria-label="Website Logo">Sahar</div>
+    <nav>
+      <ul id="nav-list">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation" tabindex="0" role="button" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" role="banner" aria-label="Hero section with main headline and call to action">
+    <div class="container">
+      <h1>Build Your Future with Our Innovative Platform</h1>
+      <p>Empower your business. Connect with customers. Grow without limits.</p>
+      <button class="btn-primary" onclick="alert('Thanks for your interest! We will get in touch soon.')">Get Started</button>
+    </div>
+  </section>
+
+  <section id="features" class="features" aria-label="Features section">
+    <div class="container">
+      <h2>Why Choose Us?</h2>
+      <div class="feature-list">
+        <article class="feature-item" tabindex="0" aria-labelledby="feature1-title" aria-describedby="feature1-desc">
+          <div class="feature-icon" aria-hidden="true">🚀</div>
+          <h3 id="feature1-title" class="feature-title">Fast Performance</h3>
+          <p id="feature1-desc" class="feature-desc">Experience lightning fast load times and seamless navigation on all devices.</p>
+        </article>
+        <article class="feature-item" tabindex="0" aria-labelledby="feature2-title" aria-describedby="feature2-desc">
+          <div class="feature-icon" aria-hidden="true">💡</div>
+          <h3 id="feature2-title" class="feature-title">Innovative Solutions</h3>
+          <p id="feature2-desc" class="feature-desc">Cutting-edge technology tailored to simplify your complex business challenges.</p>
+        </article>
+        <article class="feature-item" tabindex="0" aria-labelledby="feature3-title" aria-describedby="feature3-desc">
+          <div class="feature-icon" aria-hidden="true">🤝</div>
+          <h3 id="feature3-title" class="feature-title">Dedicated Support</h3>
+          <p id="feature3-desc" class="feature-desc">Our expert team is available 24/7 to help you succeed every step of the way.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" aria-label="Contact form section">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>Have questions? We’re here to help. Send us a message and we’ll respond as soon as possible.</p>
+      <form id="contact-form" onsubmit="submitForm(event)" novalidate>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required minlength="2" autocomplete="name" />
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" placeholder="Write your message here..." required minlength="10"></textarea>
+        
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container" aria-label="Footer">
+    &copy; 2024 Sahar. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const navList = document.getElementById('nav-list');
+
+  function toggleMenu() {
+    const expanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
+    menuToggle.setAttribute('aria-expanded', !expanded);
+    navList.classList.toggle('active');
+  }
+
+  menuToggle.addEventListener('click', toggleMenu);
+  menuToggle.addEventListener('keypress', e => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMenu();
+    }
+  });
+
+  // Basic form submission handler
+  function submitForm(e) {
+    e.preventDefault();
+    const form = e.target;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    alert('Thank you for reaching out, ' + form.name.value + '! We will get back to you shortly.');
+    form.reset();
+  }
+</script>
+
+</body>
+</html>
